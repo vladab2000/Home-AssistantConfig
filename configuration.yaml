@@ -1,0 +1,144 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret ha_latitude
+  longitude: !secret ha_longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: !secret ha_elevation
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Prague
+  # Customization file
+  customize: !include config/customize.yaml
+
+# Show links to resources in log and frontend
+# introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+#updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+recorder:
+  db_url: !secret recorder_db_url
+  purge_interval: 2
+  purge_keep_days: 5
+  exclude:
+    domains:
+      - sun
+      - group
+      - automation
+#    entities:
+#      - sun.sun # Don't record sun data
+
+
+logger:
+  default: warn
+  logs:
+    homeassistant.setup: info
+#    homeassistant.core: warn
+#    homeassistant.components: debug
+    homeassistant.components.sensor: debug
+#      homeassistant.components.recorder: debug
+#        homeassistant.components: info
+#        custom_components: info
+
+# Discover some devices automatically
+# discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+  exclude:
+    domains:
+      - input_select
+      - automation
+#      - input_number
+#      - camera
+      - notify
+#      - scene
+      - sun
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+  elevation: !secret ha_elevation
+
+# Weather prediction
+# sensor:
+#  - platform: yr
+
+# Text to speech
+# tts:
+#  - platform: google
+
+#media_player:
+#  - platform: lg_netcast
+#    host: 192.168.0.10
+#    access_token: 240781
+#    name: 42LA660S
+
+script: !include config/scripts.yaml
+# switch: !include switches.yaml
+
+#-------------------------------------------
+# Include sensors
+#-------------------------------------------
+sensor: !include_dir_merge_list config/sensors
+
+#-------------------------------------------
+# Include binary sensors
+#-------------------------------------------
+# binary_sensor: !include_dir_list config/binary_sensors
+
+#-------------------------------------------
+# Include input booleans
+#-------------------------------------------
+# input_boolean: !include_dir_named config/input_booleans
+
+#-------------------------------------------
+# Include input selects
+#-------------------------------------------
+input_select: !include_dir_named config/input_selects
+
+#-------------------------------------------
+# Include raspberry I/O Boards
+#-------------------------------------------
+rpi_ioboard:
+  i2c_bus: 1
+  boards: !include_dir_merge_list config/rpi_ioboards
+
+#-------------------------------------------
+# Include groups
+#-------------------------------------------
+group: !include_dir_merge_named config/groups
+
+#-------------------------------------------
+# Include automations
+#-------------------------------------------
+automation: !include_dir_merge_list config/automations
