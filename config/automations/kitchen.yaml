@@ -1,0 +1,128 @@
+#--------------------------------------------------------------------------------
+# při události click se přepne světlo
+#--------------------------------------------------------------------------------
+- alias: kitchen_light_click
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.kitchen_button
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.kitchen_button1
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.kitchen_button2
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.kitchen_button3
+  action:
+    - service: light.toggle
+      data_template:
+        entity_id: light.kitchen_light{{ trigger.event.data["entity_id"] | replace("binary_sensor.kitchen_button","") }}
+
+#--------------------------------------------------------------------------------
+# při události hold se vypnou světla pokud je nějaké zapnuté
+#--------------------------------------------------------------------------------
+- alias: kitchen_light_hold_off
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.kitchen_button
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.kitchen_button1
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.kitchen_button2
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.kitchen_button3
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: light.kitchen_light
+        state: 'on'
+      - condition: state
+        entity_id: light.kitchen_light1
+        state: 'on'
+      - condition: state
+        entity_id: light.kitchen_light2
+        state: 'on'
+      - condition: state
+        entity_id: light.kitchen_light3
+        state: 'on'
+  action:
+    - service: light.turn_off
+      entity_id: 
+        - light.kitchen_light
+        - light.kitchen_light1
+        - light.kitchen_light2
+        - light.kitchen_light3
+          
+#--------------------------------------------------------------------------------
+# při události hold se zapnou světla pokud jsou všechny vynputé
+#--------------------------------------------------------------------------------
+- alias: kitchen_light_hold_on
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.kitchen_button
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.kitchen_button1
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.kitchen_button2
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.kitchen_button3
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: light.kitchen_light
+        state: 'off'
+      - condition: state
+        entity_id: light.kitchen_light1
+        state: 'off'
+      - condition: state
+        entity_id: light.kitchen_light2
+        state: 'off'
+      - condition: state
+        entity_id: light.kitchen_light3
+        state: 'off'
+  action:
+    - service: light.turn_on
+      entity_id: 
+        - light.kitchen_light
+        - light.kitchen_light1
+        - light.kitchen_light2
+        - light.kitchen_light3

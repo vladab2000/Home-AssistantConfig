@@ -1,0 +1,14 @@
+#--------------------------------------------------------------------------------
+# při události click se světlo přepne
+#--------------------------------------------------------------------------------
+- alias: terrace_light_single
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.terrace_button
+  action:
+    - service: light.toggle
+      entity_id: light.terrace_light

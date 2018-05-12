@@ -1,0 +1,9 @@
+vestibule:
+  name: Zádveří
+  control: hidden
+  entities:
+    - binary_sensor.vestibule_button
+    - binary_sensor.vestibule_leaving
+    - binary_sensor.vestibule_pir
+    - light.vestibule_light
+    - light.vestibule_led

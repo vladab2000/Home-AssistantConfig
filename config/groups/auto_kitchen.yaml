@@ -1,0 +1,9 @@
+auto_kitchen:
+  name: Kuchyň
+  control: hidden
+  entities:
+    - automation.kitchen_light_click
+    - automation.kitchen_light_hold_off
+    - automation.kitchen_light_hold_on
+    - automation.kitchen_light_single
+    - automation.dining_light_click

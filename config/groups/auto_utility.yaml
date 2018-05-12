@@ -1,0 +1,7 @@
+auto_utility:
+  name: Technická místnost
+  control: hidden
+  entities:
+    - automation.utility_light_off
+    - automation.utility_light_on
+    - automation.utility_light_click_off

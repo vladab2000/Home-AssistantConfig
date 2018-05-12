@@ -1,0 +1,55 @@
+- i2c_address: 0x21
+  int_pin: 17
+  inputs:
+    1:
+      name: vestibule_leaving
+      type: button
+    2:
+      name: utility_button
+      type: button
+    3:
+      name: hall_pir
+      type: alarm
+    4:
+      name: hall_button
+      type: button
+    5:
+      name: hall_gas
+      type: gas
+    6:
+      name: elis_button1
+      actions: [single]
+      type: button
+    7:
+      name: elis_button2
+      actions: [single]
+      type: button
+    8:
+      name: bedroom_button1
+      actions: [single]
+      type: button
+  outputs:
+    1:
+      name: bathroom_heating
+      type: switch
+    2:
+      name: elis_light1
+      type: light
+    3:
+      name: elis_light2
+      type: light
+    4:
+      name: bedroom_light1
+      type: light
+    5:
+      name: bedroom_light2
+      type: light
+    6:
+      name: vikis_light1
+      type: light
+    7:
+      name: vikis_light2
+      type: light
+    8:
+      name: livingroom_light1
+      type: light

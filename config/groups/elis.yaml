@@ -1,0 +1,8 @@
+elis_room:
+  name: Pokoj Eli
+  control: hidden
+  entities:
+    - binary_sensor.elis_button1
+    - binary_sensor.elis_button2
+    - light.elis_light1
+    - light.elis_light2

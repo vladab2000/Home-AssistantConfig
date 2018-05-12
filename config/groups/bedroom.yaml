@@ -1,0 +1,8 @@
+bedroom:
+  name: Ložnice
+  control: hidden
+  entities:
+    - binary_sensor.bedroom_button1
+    - binary_sensor.bedroom_button2
+    - light.bedroom_light1
+    - light.bedroom_light2

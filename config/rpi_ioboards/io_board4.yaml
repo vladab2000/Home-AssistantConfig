@@ -1,0 +1,53 @@
+- i2c_address: 0x23
+  int_pin: 27
+  inputs:
+    1:
+      name: bathroom_button5
+      type: button
+    2:
+      name: wc_pir
+      type: motion
+    3:
+      name: wc_button
+      type: button
+    4:
+      name: livingroom_button1
+      type: button
+    5:
+      name: livingroom_button2
+      type: button
+    6:
+      name: livingroom_button3
+      type: button
+    7:
+      name: terrace_button
+      type: button
+    8:
+      name: dining_button
+      actions: [single]
+      type: button
+  outputs:
+    1:
+      name: hall_led
+      type: light
+    2:
+      name: bathroom_light1
+      type: light
+    3:
+      name: bathroom_light2
+      type: light
+    4:
+      name: bathroom_mirror
+      type: light
+    5:
+      name: bathroom_light3
+      type: light
+    6:
+      name: wc_light
+      type: light
+    7:
+      name: kitchen_light
+      type: light
+    8:
+      name: kitchen_light1
+      type: light

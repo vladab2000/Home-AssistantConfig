@@ -1,0 +1,12 @@
+auto_wc:
+  name: WC
+  control: hidden
+  entities:
+    - automation.wc_fan_on
+    - automation.wc_fan_off
+    - automation.wc_light_click_off
+    - automation.wc_light_hold_off
+    - automation.wc_light_motion_on
+    - automation.wc_light_motion_off
+    - automation.wc_light_on
+    - automation.wc_light_off

@@ -1,0 +1,71 @@
+#--------------------------------------------------------------------------------
+# při události click nebo hold a zapnutém světle se světlo vypne
+#--------------------------------------------------------------------------------
+- alias: utility_light_off
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.utility_button
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.utility_button
+  condition:
+    - condition: state
+      entity_id: light.utility_light
+      state: 'on'
+  action:
+    - service: light.turn_off
+      entity_id: light.utility_light
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.utility_light_source
+        option: none
+
+#--------------------------------------------------------------------------------
+# při události click nebo hold a vypnutém světle se světlo zapne
+#--------------------------------------------------------------------------------
+- alias: utility_light_on
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.utility_button
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.utility_button
+  condition:
+    - condition: state
+      entity_id: light.utility_light
+      state: 'off'
+  action:
+    - service: light.turn_on
+      entity_id: light.utility_light
+    - service: input_select.select_option
+      data_template:
+        option: "{{ trigger.event.data['click_action'] }}"
+        entity_id: input_select.utility_light_source
+
+#--------------------------------------------------------------------------------
+# po události click se světlo za 5 minuty vypne
+#--------------------------------------------------------------------------------
+- alias: utility_light_click_off
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: input_select.utility_light_source
+    to: single
+    for:
+      minutes: 5
+  action:
+    - service: light.turn_off
+      entity_id: light.utility_light
+

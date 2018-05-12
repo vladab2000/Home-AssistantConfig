@@ -1,0 +1,141 @@
+#--------------------------------------------------------------------------------
+# při události click nebo hold a zapnutém světle se světlo vypne
+#--------------------------------------------------------------------------------
+- alias: vestibule_light_off
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.vestibule_button
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.vestibule_button
+  condition:
+    - condition: state
+      entity_id: light.vestibule_light
+      state: 'on'
+  action:
+    - service: light.turn_off
+      entity_id: light.vestibule_light, light.vestibule_led
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.vestibule_light_source
+        option: none
+
+#--------------------------------------------------------------------------------
+# při události click nebo hold a vypnutém světle se světlo zapne
+#--------------------------------------------------------------------------------
+- alias: vestibule_light_on
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.vestibule_button
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.vestibule_button
+  condition:
+    - condition: state
+      entity_id: light.vestibule_light
+      state: 'off'
+  action:
+    - service: light.turn_on
+      entity_id: light.vestibule_light
+    - service: input_select.select_option
+      data_template:
+        option: "{{ trigger.event.data['click_action'] }}"
+        entity_id: input_select.vestibule_light_source
+    - service: light.turn_on
+      data_template:
+        entity_id: >
+          {% if trigger.event.data["click_action"] == "hold" %}
+            light.vestibule_led
+          {% else %}
+            light.vestibule_led_dummy
+          {% endif %}
+
+#--------------------------------------------------------------------------------
+# po události click se světlo za 5 minuty vypne
+#--------------------------------------------------------------------------------
+- alias: vestibule_light_click_off
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: input_select.vestibule_light_source
+    to: single
+    for:
+      minutes: 5
+  action:
+    - service: light.turn_off
+      entity_id: light.vestibule_light, light.vestibule_led
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.vestibule_light_source
+        option: none
+
+#--------------------------------------------------------------------------------
+# po události hold se světlo za 15 minuty vypne
+#--------------------------------------------------------------------------------
+- alias: vestibule_light_hold_off
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: input_select.vestibule_light_source
+    to: hold
+    for:
+      minutes: 15
+  action:
+    - service: light.turn_off
+      entity_id: light.vestibule_light, light.vestibule_led
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.vestibule_light_source
+        option: none
+
+
+#--------------------------------------------------------------------------------
+#          POHYBOVÉ ČIDLO
+#--------------------------------------------------------------------------------
+# při pohybu a vypnutých světlech se rosvítí 
+#--------------------------------------------------------------------------------
+- alias: vestibule_light_motion_on
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.vestibule_pir
+    to: 'on'
+  condition:
+    - condition: or
+      conditions:
+      - condition: sun
+        after: sunset
+        after_offset: "00:10:00"
+      - condition: sun
+        before: sunrise
+        before_offset: "00:10:00"
+  action:
+    - service: light.turn_on
+      entity_id: light.vestibule_led
+
+#--------------------------------------------------------------------------------
+# pokud bylo rosvíceno pohybem tak se po 2 minutách vypne světlo
+#--------------------------------------------------------------------------------
+- alias: vestibule_light_motion_off
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.vestibule_pir
+    to: 'off'
+    for:
+      minutes: 2
+  action:
+    - service: light.turn_off
+      entity_id: light.vestibule_led

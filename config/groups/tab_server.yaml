@@ -1,0 +1,5 @@
+server_view:
+  name: Server
+  view: yes
+  entities:
+    - group.linux_server_card

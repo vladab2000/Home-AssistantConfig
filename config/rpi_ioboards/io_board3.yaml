@@ -1,0 +1,55 @@
+- i2c_address: 0x22
+  int_pin: 18
+  inputs:
+    1:
+      name: bedroom_button2
+      actions: [single]
+      type: button
+    2:
+      name: vikis_button1
+      actions: [single]
+      type: button
+    3:
+      name: vikis_button2
+      actions: [single]
+      type: button
+    4:
+      name: bathroom_leak
+      type: moisture
+    5:
+      name: bathroom_button1
+      type: button
+    6:
+      name: bathroom_button2
+      type: button
+    7:
+      name: bathroom_button3
+      type: button
+    8:
+      name: bathroom_button4
+      type: button
+  outputs:
+    1:
+      name: livingroom_light2
+      type: light
+    2:
+      name: dining_light
+      type: light
+    3:
+      name: loft_light
+      type: light
+    4:
+      name: terrace_light
+      type: light
+    5:
+      name: vestibule_light
+      type: light
+    6:
+      name: vestibule_led
+      type: light
+    7:
+      name: utility_light
+      type: light
+    8:
+      name: hall_light
+      type: light

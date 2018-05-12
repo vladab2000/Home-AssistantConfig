@@ -1,0 +1,7 @@
+loft:
+  name: Půda
+  control: hidden
+  entities:
+    - input_select.loft_light_source
+    - binary_sensor.loft_button
+    - light.loft_light

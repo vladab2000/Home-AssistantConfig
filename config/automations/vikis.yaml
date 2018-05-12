@@ -1,0 +1,25 @@
+#--------------------------------------------------------------------------------
+# při události click se světlo přepne
+#--------------------------------------------------------------------------------
+- alias: vikis_light_single
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.vikis_button1
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.vikis_button2
+  action:
+    - service: light.toggle
+      data_template:
+        entity_id: >-
+          {% if trigger.event.data["entity_id"] == "binary_sensor.vikis_button1" %}
+            light.vikis_light1
+          {% elif trigger.event.data["entity_id"] == "binary_sensor.vikis_button2" %}
+            light.vikis_light2
+          {% endif %}

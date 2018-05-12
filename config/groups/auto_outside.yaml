@@ -1,0 +1,11 @@
+auto_outside:
+  name: Venkovní
+  control: hidden
+  entities:
+    - automation.entrance_light_click_off
+    - automation.entrance_light_hold_off
+    - automation.entrance_light_motion_off
+    - automation.entrance_light_motion_on
+    - automation.entrance_light_off
+    - automation.entrance_light_on
+    - automation.terrace_light_single

@@ -1,0 +1,9 @@
+livingroom:
+  name: Obývací pokoj
+  entities:
+    - binary_sensor.livingroom_button1
+    - binary_sensor.livingroom_button2
+    - binary_sensor.livingroom_button3
+    - light.livingroom_light1
+    - light.livingroom_light2
+    - light.livingroom_light3

@@ -1,0 +1,19 @@
+default_view:
+  name: Dům
+  view: yes
+  entities:
+    - group.livingroom
+    - group.kitchen
+    - group.hall
+    - group.wc
+    - group.bathroom
+    - group.bedroom
+    - group.vikis_room
+    - group.elis_room
+    - group.vestibule
+    - group.utility_room
+    - group.loft
+    - group.outside
+    - group.outhouse
+
+

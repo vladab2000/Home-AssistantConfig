@@ -1,0 +1,52 @@
+- i2c_address: 0x20
+  int_pin: 4
+  inputs:
+    1:
+      name: utility_c_off
+      type: power
+    2:
+      name: utility_hdo
+      type: power
+    3:
+      name: utility_power
+      type: power
+    4:
+      name: utility_watermeter
+      type: power
+    5:
+      name: utility_leak
+      type: moisture
+    6:
+      name: vestibule_pir
+      type: motion
+    7:
+      name: vestibule_button
+      type: button
+    8:
+      name: entrance_button
+      type: button
+  outputs:
+    1:
+      name: utility_c_off
+      type: switch
+    2:
+      name: utility_water_open
+      type: switch
+    3:
+      name: utility_water_close
+      type: switch
+    4:
+      name: gate_drive
+      type: switch
+    5:
+      name: entrance_light
+      type: light
+    6:
+      name: outhouse_light
+      type: light
+    7:
+      name: bathroom_fan
+      type: fan
+    8:
+      name: wc_fan
+      type: fan

@@ -1,0 +1,12 @@
+outside:
+  name: Venkovní
+  entities:
+    - input_select.entrance_light_source
+    - binary_sensor.entrance_button
+    - binary_sensor.entrance_pir
+    - binary_sensor.entrance_ring
+    - light.entrance_light
+    - binary_sensor.gate_ring
+    - switch.gate_drive
+    - binary_sensor.terrace_button
+    - light.terrace_light

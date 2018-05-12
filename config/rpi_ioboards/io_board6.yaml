@@ -1,0 +1,53 @@
+- i2c_address: 0x25
+  int_pin: 23
+  inputs:
+    1:
+      name: outhouse_button
+      type: button
+    2:
+      name: outhouse_pir
+      type: motion
+    3:
+      name: loft_button
+      type: button
+    4:
+      name: AKT44
+      type: power
+    5:
+      name: gate_ring
+      type: button
+      actions: [down, up, single]
+    6:
+      name: AKT46
+      type: power
+    7:
+      name: AKT47
+      type: power
+    8:
+      name: AKT48
+      type: power
+  outputs:
+    1:
+      name: REL41
+      type: switch
+    2:
+      name: REL42
+      type: switch
+    3:
+      name: REL43
+      type: switch
+    4:
+      name: REL44
+      type: switch
+    5:
+      name: REL45
+      type: switch
+    6:
+      name: REL46
+      type: switch
+    7:
+      name: REL47
+      type: switch
+    8:
+      name: REL48
+      type: switch

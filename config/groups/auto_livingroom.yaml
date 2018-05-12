@@ -1,0 +1,6 @@
+auto_livingroom:
+  name: Obývací pokoj
+  entities:
+    - automation.livingroom_light_click
+    - automation.livingroom_light_hold_off
+    - automation.livingroom_light_hold_on

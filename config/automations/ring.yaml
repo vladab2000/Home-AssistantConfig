@@ -1,0 +1,56 @@
+#--------------------------------------------------------------------------------
+# při stisknutí tlačítka zvonku se spustí zvonění
+#--------------------------------------------------------------------------------
+- alias: entrance_ring_on
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.entrance_ring
+    to: 'on'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.hall_doorbell
+
+#--------------------------------------------------------------------------------
+# po 20 sekundách se ze zvonění vypne
+#--------------------------------------------------------------------------------
+- alias: entrance_ring_off
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.entrance_ring
+    to: 'off'
+    for:
+      seconds: 11
+  action:
+    - service: switch.turn_off
+      entity_id: switch.hall_doorbell
+
+#--------------------------------------------------------------------------------
+# při stisknutí tlačítka zvonku se spustí zvonění
+#--------------------------------------------------------------------------------
+- alias: gate_ring_on
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.gate_ring
+    to: 'on'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.hall_doorbell
+
+#--------------------------------------------------------------------------------
+# po 20 sekundách se ze zvonění vypne
+#--------------------------------------------------------------------------------
+- alias: gate_ring_off
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.gate_ring
+    to: 'off'
+    for:
+      seconds: 11
+  action:
+    - service: switch.turn_off
+      entity_id: switch.hall_doorbell
+

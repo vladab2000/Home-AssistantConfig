@@ -1,0 +1,10 @@
+auto_vestibule:
+  name: Zádveří
+  control: hidden
+  entities:
+    - automation.vestibule_light_click_off
+    - automation.vestibule_light_hold_off
+    - automation.vestibule_light_motion_on
+    - automation.vestibule_light_motion_off
+    - automation.vestibule_light_on
+    - automation.vestibule_light_off

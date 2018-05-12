@@ -1,0 +1,99 @@
+binary_sensor.akt44:
+  hidden: true
+binary_sensor.akt45:
+  hidden: true
+binary_sensor.akt46:
+  hidden: true
+binary_sensor.akt47:
+  hidden: true
+binary_sensor.akt48:
+  hidden: true
+switch.rel36:
+  hidden: true
+switch.rel37:
+  hidden: true
+switch.rel38:
+  hidden: true
+switch.rel39:
+  hidden: true
+switch.rel40:
+  hidden: true
+switch.rel41:
+  hidden: true
+switch.rel42:
+  hidden: true
+switch.rel43:
+  hidden: true
+switch.rel44:
+  hidden: true
+switch.rel45:
+  hidden: true
+switch.rel46:
+  hidden: true
+switch.rel47:
+  hidden: true
+switch.rel48:
+  hidden: true
+sun.sun:
+  friendly_name: Slunce
+  hidden: true
+binary_sensor.wc_button:
+  hidden: true
+binary_sensor.loft_button:
+  hidden: true
+binary_sensor.bathroom_button1:
+  hidden: true
+binary_sensor.bathroom_button2:
+  hidden: true
+binary_sensor.bathroom_button3:
+  hidden: true
+binary_sensor.bathroom_button4:
+  hidden: true
+binary_sensor.bathroom_button5:
+  hidden: true
+binary_sensor.bedroom_button1:
+  hidden: true
+binary_sensor.bedroom_button2:
+  hidden: true
+binary_sensor.elis_button1:
+  hidden: true
+binary_sensor.elis_button2:
+  hidden: true
+binary_sensor.vikis_button1:
+  hidden: true
+binary_sensor.vikis_button2:
+  hidden: true
+binary_sensor.livingroom_button1:
+  hidden: true
+binary_sensor.livingroom_button2:
+  hidden: true
+binary_sensor.livingroom_button3:
+  hidden: true
+binary_sensor.outhouse_button:
+  hidden: true
+binary_sensor.hall_button:
+  hidden: true
+binary_sensor.entrance_button:
+  hidden: true
+binary_sensor.entrance_ring:
+  hidden: true
+binary_sensor.gate_ring:
+  hidden: true
+binary_sensor.terrace_button:
+  hidden: true
+binary_sensor.vestibule_button:
+  hidden: true
+binary_sensor.kitchen_button:
+  hidden: true
+binary_sensor.kitchen_button1:
+  hidden: true
+binary_sensor.kitchen_button2:
+  hidden: true
+binary_sensor.kitchen_button3:
+  hidden: true
+binary_sensor.kitchen_button4:
+  hidden: true
+binary_sensor.dining_button:
+  hidden: true
+group.linux_server:
+  hidden: true

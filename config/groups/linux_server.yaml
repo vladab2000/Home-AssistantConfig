@@ -1,0 +1,13 @@
+linux_server_card:
+  name: Hass Server
+  entities:
+     - sensor.average_load_15m
+     - sensor.disk_free_home
+     - sensor.disk_used_home
+     - sensor.ram_available
+     - sensor.ram_used
+     - sensor.received_eth0
+     - sensor.sent_eth0
+     - sensor.ipv4_address_eth0
+     - sensor.last_boot
+     - sensor.since_last_boot

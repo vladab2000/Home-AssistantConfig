@@ -1,0 +1,15 @@
+kitchen:
+  name: Kuchyň
+  control: hidden
+  entities:
+    - binary_sensor.kitchen_button
+    - binary_sensor.kitchen_button1
+    - binary_sensor.kitchen_button2
+    - binary_sensor.kitchen_button3
+    - binary_sensor.kitchen_leak
+    - binary_sensor.dining_button
+    - light.kitchen_light
+    - light.kitchen_light1
+    - light.kitchen_light2
+    - light.kitchen_light3
+    - light.dining_light

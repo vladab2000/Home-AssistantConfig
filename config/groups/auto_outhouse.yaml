@@ -1,0 +1,9 @@
+auto_outhouse:
+  name: Bouda
+  entities:
+    - automation.outhouse_light_click_off
+    - automation.outhouse_light_hold_off
+    - automation.outhouse_light_motion_off
+    - automation.outhouse_light_motion_on
+    - automation.outhouse_light_off
+    - automation.outhouse_light_on

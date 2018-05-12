@@ -1,0 +1,14 @@
+#--------------------------------------------------------------------------------
+# při události click se přepne světlo
+#--------------------------------------------------------------------------------
+- alias: dining_light_click
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.dining_button
+  action:
+    - service: light.toggle
+      entity_id: light.dining_light

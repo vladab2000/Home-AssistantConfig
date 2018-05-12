@@ -1,0 +1,15 @@
+bathroom:
+  name: Koupelna
+  entities:
+    - binary_sensor.bathroom_leak
+    - binary_sensor.bathroom_button1
+    - binary_sensor.bathroom_button2
+    - binary_sensor.bathroom_button3
+    - binary_sensor.bathroom_button4
+    - binary_sensor.bathroom_button5
+    - light.bathroom_light1
+    - light.bathroom_light2
+    - light.bathroom_light3
+    - light.bathroom_mirror
+    - fan.bathroom_fan
+    - switch.bathroom_heating

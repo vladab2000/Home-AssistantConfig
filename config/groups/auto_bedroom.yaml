@@ -1,0 +1,5 @@
+auto_bedroom:
+  name: Ložnice
+  control: hidden
+  entities:
+    - automation.bedroom_light_click

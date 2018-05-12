@@ -1,0 +1,5 @@
+auto_vikis:
+  name: Pokoj Viki
+  control: hidden
+  entities:
+    - automation.vikis_light_single

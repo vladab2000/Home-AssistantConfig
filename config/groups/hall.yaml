@@ -1,0 +1,10 @@
+hall:
+  name: Chodba
+  entities:
+    - input_select.hall_light_source
+    - binary_sensor.hall_button
+    - binary_sensor.hall_pir
+    - binary_sensor.hall_gas
+    - light.hall_light
+    - light.hall_led
+    - switch.hall_doorbell

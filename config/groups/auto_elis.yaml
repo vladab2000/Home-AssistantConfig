@@ -1,0 +1,5 @@
+auto_elis:
+  name: Pokoj Eli
+  control: hidden
+  entities:
+    - automation.elis_light_single

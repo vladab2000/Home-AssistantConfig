@@ -1,0 +1,9 @@
+wc:
+  name: WC
+  control: hidden
+  entities:
+    - input_select.wc_light_source
+    - binary_sensor.wc_button
+    - binary_sensor.wc_pir
+    - light.wc_light
+    - fan.wc_fan

@@ -1,0 +1,17 @@
+rest_view:
+  name: Automatizace
+  view: yes
+  entities:
+    - group.auto_livingroom
+    - group.auto_kitchen
+    - group.auto_hall
+    - group.auto_wc
+    - group.auto_bathroom
+    - group.auto_bedroom
+    - group.auto_elis
+    - group.auto_vikis
+    - group.auto_vestibule
+    - group.auto_utility
+    - group.auto_loft
+    - group.auto_outside
+    - group.auto_outhouse

@@ -1,0 +1,209 @@
+#--------------------------------------------------------------------------------
+# při události click se přepne světlo
+#--------------------------------------------------------------------------------
+- alias: bathroom_light_click
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.bathroom_button1
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.bathroom_button2
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.bathroom_button3
+  action:
+    - service: light.toggle
+      data_template:
+        entity_id: light.bathroom_light{{ trigger.event.data["entity_id"] | replace("binary_sensor.bathroom_button","") }}
+
+- alias: bathroom_mirror_click
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.bathroom_button5
+  action:
+    - service: light.toggle
+      entity_id: light.bathroom_mirror
+
+- alias: bathroom_fan_click
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.bathroom_button4
+  action:
+    - service: fan.toggle
+      entity_id: fan.bathroom_fan
+
+- alias: bathroom_heating_hold
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.bathroom_button4
+  action:
+    - service: switch.toggle
+      entity_id: switch.bathroom_heating
+
+#--------------------------------------------------------------------------------
+# při události hold se vypnou světla pokud je nějaké zapnuté
+#--------------------------------------------------------------------------------
+- alias: bathroom_light_hold_off
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.bathroom_button1
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.bathroom_button2
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.bathroom_button3
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.bathroom_button5
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: light.bathroom_light1
+        state: 'on'
+      - condition: state
+        entity_id: light.bathroom_light2
+        state: 'on'
+      - condition: state
+        entity_id: light.bathroom_light3
+        state: 'on'
+      - condition: state
+        entity_id: light.bathroom_mirror
+        state: 'on'
+  action:
+    - service: light.turn_off
+      entity_id: 
+        - light.bathroom_light1
+        - light.bathroom_light2
+        - light.bathroom_light3
+        - light.bathroom_mirror
+
+#--------------------------------------------------------------------------------
+# při události hold se zapnou světla pokud jsou všechny vynputé
+#--------------------------------------------------------------------------------
+- alias: bathroom_light_hold_on
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.bathroom_button1
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.bathroom_button2
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.bathroom_button3
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: hold
+        entity_id: binary_sensor.bathroom_button5
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: light.bathroom_light1
+        state: 'off'
+      - condition: state
+        entity_id: light.bathroom_light2
+        state: 'off'
+      - condition: state
+        entity_id: light.bathroom_light3
+        state: 'off'
+      - condition: state
+        entity_id: light.bathroom_mirror
+        state: 'off'
+  action:
+    - service: light.turn_on
+      entity_id: 
+        - light.bathroom_light1
+        - light.bathroom_light2
+        - light.bathroom_light3
+        - light.bathroom_mirror
+
+
+
+
+#--------------------------------------------------------------------------------
+# světlo zrcadla automaticky zhasínat po 22 minutách
+#--------------------------------------------------------------------------------
+- alias: bathroom_mirror_light_auto_off
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: light.bathroom_mirror
+    to: 'on'
+    for:
+      minutes: 22
+  action:
+    - service: light.turn_off
+      entity_id: light.bathroom_mirror
+
+
+#--------------------------------------------------------------------------------
+# ventlátor automaticky vypínat po 15 minutách
+#--------------------------------------------------------------------------------
+- alias: bathroom_fan_auto_off
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: fan.bathroom_fan
+    to: 'on'
+    for:
+      minutes: 15
+  action:
+    - service: fan.turn_off
+      entity_id: fan.bathroom_fan
+
+
+#--------------------------------------------------------------------------------
+# světlo zrcadla automaticky zhasínat po 60 minutách
+#--------------------------------------------------------------------------------
+- alias: bathroom_heating_auto_off
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: switch.bathroom_heating
+    to: 'on'
+    for:
+      minutes: 60
+  action:
+    - service: switch.turn_off
+      entity_id: switch.bathroom_heating

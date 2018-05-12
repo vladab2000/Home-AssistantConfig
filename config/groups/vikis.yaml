@@ -1,0 +1,8 @@
+vikis_room:
+  name: Pokoj Viki
+  control: hidden
+  entities:
+    - binary_sensor.vikis_button1
+    - binary_sensor.vikis_button2
+    - light.vikis_light1
+    - light.vikis_light2

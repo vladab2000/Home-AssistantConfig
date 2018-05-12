@@ -1,0 +1,8 @@
+auto_loft:
+  name: Půda
+  control: hidden
+  entities:
+    - automation.loft_light_click_off
+    - automation.loft_light_hold_off
+    - automation.loft_light_off
+    - automation.loft_light_on

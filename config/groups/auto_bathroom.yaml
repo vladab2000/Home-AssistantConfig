@@ -1,0 +1,9 @@
+auto_bathroom:
+  name: Koupelna
+  control: hidden
+  entities:
+    - automation.bathroom_fan_click
+    - automation.bathroom_light_click
+    - automation.bathroom_light_hold_off
+    - automation.bathroom_light_hold_on
+    - automation.bathroom_mirror_click

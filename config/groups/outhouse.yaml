@@ -1,0 +1,7 @@
+outhouse:
+  name: Bouda
+  entities:
+    - input_select.outhouse_light_source
+    - binary_sensor.outhouse_button
+    - binary_sensor.outhouse_pir
+    - light.outhouse_light

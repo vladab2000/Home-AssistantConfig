@@ -1,0 +1,10 @@
+auto_hall:
+  name: Chodba
+  control: hidden
+  entities:
+    - automation.hall_light_click_off
+    - automation.hall_light_hold_off
+    - automation.hall_light_motion_off
+    - automation.hall_light_motion_on
+    - automation.hall_light_off
+    - automation.hall_light_on

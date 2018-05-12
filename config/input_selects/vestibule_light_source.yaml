@@ -1,0 +1,7 @@
+options:
+  - none
+  - motion
+  - single
+  - hold
+initial: none
+icon: mdi:access-point
