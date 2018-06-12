@@ -9,3 +9,7 @@ auto_outside:
     - automation.entrance_light_off
     - automation.entrance_light_on
     - automation.terrace_light_single
+    - automation.entrance_ring_on
+    - automation.entrance_ring_off
+    - automation.gate_ring_on
+    - automation.gate_ring_off
