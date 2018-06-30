@@ -1,0 +1,6 @@
+date_view:
+  name: Datum
+  view: yes
+  icon: mdi:home
+  entities:
+    - group.date_time

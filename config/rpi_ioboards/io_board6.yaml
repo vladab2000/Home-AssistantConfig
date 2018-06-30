@@ -14,7 +14,7 @@
       name: AKT44
       type: power
     5:
-      name: gate_ring
+      name: AKT45
       type: button
       actions: [down, up, single]
     6:

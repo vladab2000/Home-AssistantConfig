@@ -1,5 +1,5 @@
 - i2c_address: 0x21
-  int_pin: 17
+  int_pin: 24
   inputs:
     1:
       name: vestibule_leaving

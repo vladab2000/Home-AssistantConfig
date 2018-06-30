@@ -1,0 +1,17 @@
+- platform: template
+  sensors:
+    date_long:
+      friendly_name: 'Datum'
+      value_template: >
+        {% set months = ["leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec"] %}
+        {% set month = months[now().strftime('%m') | int -1] %}
+        {{ now().strftime('%d') + '. ' + month + ' '+ now().strftime('%Y') }}
+
+- platform: time_date
+  display_options:
+    - 'time'
+    - 'date'
+    - 'date_time'
+    - 'time_date'
+    - 'time_utc'
+    - 'beat'

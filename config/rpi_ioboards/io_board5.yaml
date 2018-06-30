@@ -24,7 +24,7 @@
       type: button
       actions: [down, up, single]
     8:
-      name: AKT40
+      name: gate_ring
       type: button
       actions: [down, up, single]
   outputs:
