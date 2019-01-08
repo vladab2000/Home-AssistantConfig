@@ -47,9 +47,15 @@ recorder:
       - sun
       - group
       - automation
-#    entities:
-#      - sun.sun # Don't record sun data
-
+      - input_select
+    entities:
+      - sensor.time_utc
+      - sensor.time__date
+      - sensor.time
+      - sensor.since_last_boot
+      - sensor.internet_time
+      - sensor.date__time
+      - binary_sensor.hall_pir
 
 logger:
   default: warn
@@ -57,7 +63,7 @@ logger:
     homeassistant.setup: info
 #    homeassistant.core: warn
 #    homeassistant.components: debug
-    homeassistant.components.sensor: debug
+#    homeassistant.components.sensor: debug
 #      homeassistant.components.recorder: debug
 #        homeassistant.components: info
 #        custom_components: info
@@ -86,6 +92,30 @@ logbook:
 # Enables a map showing the location of tracked devices
 map:
 
+notify:
+  - name: slack
+    platform: slack
+    api_key: xoxp-286537228144-286679179457-431649196211-e581981d25071c9c31e9ed9d8ca252c3
+    default_channel: "#hass"
+
+#influxdb:
+#  host: 127.0.0.1
+#  include:
+#    entities:
+#       - binary_sensor.utility_hdo
+#       - binary_sensor.utility_power
+#       - sensor.utility_watermeter
+
+
+######################################
+##### MQTT configuration example #####
+######################################
+
+mqtt:
+  broker: localhost
+  username: mqtt_user
+  password: !secret mqtt_password
+
 # Track the sun
 sun:
   elevation: !secret ha_elevation
@@ -104,8 +134,27 @@ sun:
 #    access_token: 240781
 #    name: 42LA660S
 
+camera:
+  - platform: generic
+    still_image_url: http://192.168.88.31/cgi-bin/getsnapshot.cgi
+    name: ipcam1
+  - platform: generic
+    still_image_url: http://192.168.88.32/webcapture.jpg?command=snap&chanel=1
+    name: ipcam2
+  - platform: generic
+    still_image_url: http://192.168.88.33/webcapture.jpg?command=snap&chanel=1
+    name: ipcam3
+  - platform: generic
+    still_image_url: http://192.168.88.34/webcapture.jpg?command=snap&chanel=1
+    name: ipcam4
+#  - platform: onvif
+#    host: 192.168.88.35
+#    port: 8899
+#    name: ipcam5
+
 script: !include config/scripts.yaml
-# switch: !include switches.yaml
+
+switch: !include_dir_merge_list config/switches
 
 #-------------------------------------------
 # Include sensors
@@ -143,3 +192,4 @@ group: !include_dir_merge_named config/groups
 # Include automations
 #-------------------------------------------
 automation: !include_dir_merge_list config/automations
+

@@ -1,4 +1,20 @@
 #--------------------------------------------------------------------------------
+# vypnutí automatizovaných prvků při spuštění home assistant
+#--------------------------------------------------------------------------------
+- alias: entrance_home_assistant_start
+  initial_state: on
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - service: light.turn_off
+      entity_id: light.entrance_light
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.entrance_light_source
+        option: none
+
+#--------------------------------------------------------------------------------
 # při události click nebo hold a zapnutém světle se světlo vypne
 #--------------------------------------------------------------------------------
 - alias: entrance_light_off
@@ -112,10 +128,8 @@
       conditions:
       - condition: sun
         after: sunset
-        after_offset: "00:30:00"
       - condition: sun
         before: sunrise
-        before_offset: "00:30:00"
   action:
     - service: light.turn_on
       entity_id: light.entrance_light
@@ -125,7 +139,7 @@
         option: motion
 
 #--------------------------------------------------------------------------------
-# pokud bylo rosvíceno pohybem tak se po 5 minutách vypne světlo
+# pokud bylo rosvíceno pohybem tak se po 3 minutách vypne světlo
 #--------------------------------------------------------------------------------
 - alias: entrance_light_motion_off
   initial_state: on

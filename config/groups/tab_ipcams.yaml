@@ -1,0 +1,6 @@
+ipcams_view:
+  name: IP Cameras
+  view: yes
+  icon: mdi:webcam
+  entities:
+    - group.ipcams

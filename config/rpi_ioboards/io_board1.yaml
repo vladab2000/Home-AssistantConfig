@@ -12,7 +12,10 @@
       type: power
     4:
       name: utility_watermeter
-      type: power
+#      type: power
+      type: energy
+      units: l
+      multiplier: 10
     5:
       name: utility_leak
       type: moisture

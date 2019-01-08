@@ -1,4 +1,20 @@
 #--------------------------------------------------------------------------------
+# vypnutí automatizovaných prvků při spuštění home assistant
+#--------------------------------------------------------------------------------
+- alias: utility_home_assistant_start
+  initial_state: on
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - service: light.turn_off
+      entity_id: light.utility_light
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.utility_light_source
+        option: none
+
+#--------------------------------------------------------------------------------
 # při události click nebo hold a zapnutém světle se světlo vypne
 #--------------------------------------------------------------------------------
 - alias: utility_light_off

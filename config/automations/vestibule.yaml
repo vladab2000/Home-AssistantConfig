@@ -1,4 +1,20 @@
 #--------------------------------------------------------------------------------
+# vypnutí automatizovaných prvků při spuštění home assistant
+#--------------------------------------------------------------------------------
+- alias: vestibule_home_assistant_start
+  initial_state: on
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - service: light.turn_off
+      entity_id: light.vestibule_led
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.vestibule_light_source
+        option: none
+
+#--------------------------------------------------------------------------------
 # při události click nebo hold a zapnutém světle se světlo vypne
 #--------------------------------------------------------------------------------
 - alias: vestibule_light_off
@@ -15,9 +31,14 @@
         click_action: hold
         entity_id: binary_sensor.vestibule_button
   condition:
-    - condition: state
-      entity_id: light.vestibule_light
-      state: 'on'
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: light.vestibule_light
+        state: 'on'
+      - condition: state
+        entity_id: light.vestibule_led
+        state: 'on'
   action:
     - service: light.turn_off
       entity_id: light.vestibule_light, light.vestibule_led
@@ -43,9 +64,14 @@
         click_action: hold
         entity_id: binary_sensor.vestibule_button
   condition:
-    - condition: state
-      entity_id: light.vestibule_light
-      state: 'off'
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: light.vestibule_light
+        state: 'off'
+      - condition: state
+        entity_id: light.vestibule_led
+        state: 'off'
   action:
     - service: light.turn_on
       entity_id: light.vestibule_light

@@ -1,0 +1,26 @@
+#--------------------------------------------------------------------------------
+# vypnutí automatizovaných prvků při spuštění home assistant
+#--------------------------------------------------------------------------------
+- alias: c_off_home_assistant_start
+  initial_state: on
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - service: switch.turn_off
+      entity_id: switch.utility_c_off
+
+###############################################
+#  Automatické vypnutí c-off po jeho aktivaci
+###############################################
+- alias: c_off_auto_off
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: switch.utility_c_off
+    to: 'on'
+    for:
+      seconds: 1
+  action:
+    - service: switch.turn_off
+      entity_id: switch.utility_c_off

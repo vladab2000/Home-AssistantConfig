@@ -7,6 +7,11 @@ outside:
     - binary_sensor.entrance_ring
     - light.entrance_light
     - binary_sensor.gate_ring
+    - input_select.gate_ring_source
     - switch.gate_drive
     - binary_sensor.terrace_button
     - light.terrace_light
+    - switch.seasone_light
+    - sensor.outside_temperature
+    - sensor.outside_humidity
+    - sensor.outside_pressure

@@ -8,7 +8,7 @@ utility_room:
     - binary_sensor.utility_hdo
     - binary_sensor.utility_leak
     - binary_sensor.utility_power
-    - binary_sensor.utility_watermeter
+    - sensor.utility_watermeter
     - light.utility_light
     - switch.utility_c_off
     - switch.utility_water_close

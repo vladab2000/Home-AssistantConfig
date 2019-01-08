@@ -1,4 +1,18 @@
 #--------------------------------------------------------------------------------
+# vypnutí automatizovaných prvků při spuštění home assistant
+#--------------------------------------------------------------------------------
+- alias: bathroom_home_assistant_start
+  initial_state: on
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - service: switch.turn_off
+      entity_id: switch.bathroom_heating
+    - service: fan.turn_off
+      entity_id: fan.bathroom_fan
+
+#--------------------------------------------------------------------------------
 # při události click se přepne světlo
 #--------------------------------------------------------------------------------
 - alias: bathroom_light_click
@@ -157,9 +171,6 @@
         - light.bathroom_light2
         - light.bathroom_light3
         - light.bathroom_mirror
-
-
-
 
 #--------------------------------------------------------------------------------
 # světlo zrcadla automaticky zhasínat po 22 minutách

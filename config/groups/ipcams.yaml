@@ -1,0 +1,8 @@
+ipcams:
+  name: Kamery
+  entities:
+    - camera.ipcam1
+    - camera.ipcam2
+    - camera.ipcam3
+    - camera.ipcam4
+#    - camera.ipcam5

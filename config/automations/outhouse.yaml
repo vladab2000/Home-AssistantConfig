@@ -1,4 +1,22 @@
 #--------------------------------------------------------------------------------
+# vypnutí automatizovaných prvků při spuštění home assistant
+#--------------------------------------------------------------------------------
+- alias: outhouse_home_assistant_start
+  initial_state: on
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - service: light.turn_off
+      entity_id: light.outhouse_light
+    - service: switch.turn_off
+      entity_id: switch.outhouse_reflector
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.outhouse_light_source
+        option: none
+
+#--------------------------------------------------------------------------------
 # při události click nebo hold a zapnutém světle se světlo vypne
 #--------------------------------------------------------------------------------
 - alias: outhouse_light_off
@@ -94,6 +112,50 @@
 
 
 #--------------------------------------------------------------------------------
+#          POHYBOVÉ ČIDLO VSTUP A REFLECTOR
+#--------------------------------------------------------------------------------
+# při pohybu a vypnutých světlech se rosvítí 
+#--------------------------------------------------------------------------------
+- alias: outhouse_reflector_motion_on
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.entrance_pir
+    to: 'on'
+  condition:
+    - condition: state
+      entity_id: switch.outhouse_reflector
+      state: 'off'
+    - condition: or
+      conditions:
+      - condition: sun
+        after: sunset
+      - condition: sun
+        before: sunrise
+  action:
+    - service: switch.turn_on
+      entity_id: switch.outhouse_reflector
+
+#--------------------------------------------------------------------------------
+# pokud bylo rosvíceno tak se po 3 minutách vypne světlo
+#--------------------------------------------------------------------------------
+- alias: outhouse_reflector_motion_off
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.entrance_pir
+    to: 'off'
+    for:
+      minutes: 3
+  condition:
+    - condition: state
+      entity_id: switch.outhouse_reflector
+      state: 'on'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.outhouse_reflector
+
+#--------------------------------------------------------------------------------
 #          POHYBOVÉ ČIDLO
 #--------------------------------------------------------------------------------
 # při pohybu a vypnutých světlech se rosvítí 
@@ -138,3 +200,5 @@
       data:
         entity_id: input_select.outhouse_light_source
         option: none
+
+

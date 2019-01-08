@@ -1,4 +1,16 @@
 #--------------------------------------------------------------------------------
+# vypnutí automatizovaných prvků při spuštění home assistant
+#--------------------------------------------------------------------------------
+- alias: terrace_home_assistant_start
+  initial_state: on
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - service: light.turn_off
+      entity_id: light.terrace_light
+
+#--------------------------------------------------------------------------------
 # při události click se světlo přepne
 #--------------------------------------------------------------------------------
 - alias: terrace_light_single
@@ -12,3 +24,43 @@
   action:
     - service: light.toggle
       entity_id: light.terrace_light
+
+
+
+#--------------------------------------------------------------------------------
+# rosvícení světel při západu slunce
+#--------------------------------------------------------------------------------
+- alias: seasone_light_evening_on
+  initial_state: off
+  trigger:
+    platform: sun
+    event: sunset
+    offset: "00:15:00"
+  action:
+    - service: switch.turn_on
+      entity_id: switch.seasone_light
+
+#--------------------------------------------------------------------------------
+# vypnutí světel ve 23:00
+#--------------------------------------------------------------------------------
+- alias: seasone_light_evening_off
+  initial_state: on
+  trigger:
+    platform: time
+    at: "23:00:00"
+  action:
+    - service: switch.turn_off
+      entity_id: switch.seasone_light
+
+
+#--------------------------------------------------------------------------------
+# vypnutí světel při východu slunce
+#--------------------------------------------------------------------------------
+- alias: seasone_light_evening_on
+  initial_state: on
+  trigger:
+    platform: sun
+    event: sunrise
+  action:
+    - service: switch.turn_off
+      entity_id: switch.seasone_light

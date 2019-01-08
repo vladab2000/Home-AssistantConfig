@@ -1,0 +1,17 @@
+- platform: mqtt
+  name: "outside_temperature"
+  state_topic: "tele/sonoff1/SENSOR"
+  value_template: "{{ value_json['BME280'].Temperature }}"
+  unit_of_measurement: "°C"
+
+- platform: mqtt
+  name: "outside_humidity"
+  state_topic: "tele/sonoff1/SENSOR"
+  value_template: "{{ value_json['BME280'].Humidity }}"
+  unit_of_measurement: "%"
+
+- platform: mqtt
+  name: "outside_pressure"
+  state_topic: "tele/sonoff1/SENSOR"
+  value_template: "{{ value_json['BME280'].Pressure }}"
+  unit_of_measurement: "hPa"

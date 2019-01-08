@@ -1,56 +1,168 @@
 #--------------------------------------------------------------------------------
-# při stisknutí tlačítka zvonku se spustí zvonění
+# vypnutí automatizovaných prvků při spuštění home assistant
+#--------------------------------------------------------------------------------
+- alias: ring_home_assistant_start
+  initial_state: on
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - service: switch.turn_off
+      entity_id: switch.hall_doorbell
+    - service: switch.turn_off
+      entity_id: switch.gate_drive
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.gate_ring_source
+        option: none
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.entrance_ring_source
+        option: none
+
+#--------------------------------------------------------------------------------
+# při události click nebo hold tlačítka zvonku u brány se nastaví stav
 #--------------------------------------------------------------------------------
 - alias: entrance_ring_on
   initial_state: on
   trigger:
-    platform: state
-    entity_id: binary_sensor.entrance_ring
-    to: 'on'
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.entrance_ring
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: long_hold
+        entity_id: binary_sensor.entrance_ring
   action:
-    - service: switch.turn_on
-      entity_id: switch.hall_doorbell
+    - service: input_select.select_option
+      data_template:
+        option: "{{ trigger.event.data['click_action'] }}"
+        entity_id: input_select.entrance_ring_source
 
 #--------------------------------------------------------------------------------
-# po 20 sekundách se ze zvonění vypne
-#--------------------------------------------------------------------------------
-- alias: entrance_ring_off
-  initial_state: on
-  trigger:
-    platform: state
-    entity_id: binary_sensor.entrance_ring
-    to: 'off'
-    for:
-      seconds: 11
-  action:
-    - service: switch.turn_off
-      entity_id: switch.hall_doorbell
-
-#--------------------------------------------------------------------------------
-# při stisknutí tlačítka zvonku se spustí zvonění
+# při události click nebo hold tlačítka zvonku u domu se nastaví stav
 #--------------------------------------------------------------------------------
 - alias: gate_ring_on
   initial_state: on
   trigger:
-    platform: state
-    entity_id: binary_sensor.gate_ring
-    to: 'on'
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: single
+        entity_id: binary_sensor.gate_ring
+    - platform: event
+      event_type: ioboard_event
+      event_data:
+        click_action: long_hold
+        entity_id: binary_sensor.gate_ring
+  action:
+    - service: input_select.select_option
+      data_template:
+        option: "{{ trigger.event.data['click_action'] }}"
+        entity_id: input_select.gate_ring_source
+
+#--------------------------------------------------------------------------------
+# při stisknutí tlačítka zvonku se spustí zvonění
+#--------------------------------------------------------------------------------
+- alias: ring_source_to_single_on
+  initial_state: on
+  trigger:
+    - platform: state
+      entity_id: input_select.gate_ring_source
+      to: 'single'
+    - platform: state
+      entity_id: input_select.entrance_ring_source
+      to: 'single'
   action:
     - service: switch.turn_on
       entity_id: switch.hall_doorbell
 
 #--------------------------------------------------------------------------------
-# po 20 sekundách se ze zvonění vypne
+# po 11 sekundách zvonění se ze zvonění vypne
 #--------------------------------------------------------------------------------
-- alias: gate_ring_off
+- alias: gate_ring_source_to_single_off
   initial_state: on
   trigger:
     platform: state
-    entity_id: binary_sensor.gate_ring
-    to: 'off'
+    entity_id: switch.hall_doorbell
+    to: 'on'
     for:
       seconds: 11
   action:
     - service: switch.turn_off
       entity_id: switch.hall_doorbell
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.gate_ring_source
+        option: none
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.entrance_ring_source
+        option: none
 
+
+#--------------------------------------------------------------------------------
+# při držení tlačítka zvonku u brány se otevře brána
+#--------------------------------------------------------------------------------
+- alias: gate_ring_source_to_hold_on
+  initial_state: on
+  trigger:
+    - platform: state
+      entity_id: input_select.gate_ring_source
+      to: 'long_hold'
+  condition:
+    condition: time
+    after: '07:00:00'
+    before: '16:00:00'
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    - service: switch.turn_on
+      entity_id: switch.gate_drive
+
+#--------------------------------------------------------------------------------
+# při držení tlačítka zvonku u domu se otevře brána
+#--------------------------------------------------------------------------------
+- alias: entrance_ring_source_to_hold_on
+  initial_state: on
+  trigger:
+    - platform: state
+      entity_id: input_select.entrance_ring_source
+      to: 'long_hold'
+  condition:
+    condition: time
+    after: '05:50:00'
+    before: '21:00:00'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.gate_drive
+
+#--------------------------------------------------------------------------------
+# automatické ukončení impulsu pro otevření/zavření brány
+#--------------------------------------------------------------------------------
+- alias: gate_ring_source_to_hold_off
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: switch.gate_drive
+    to: 'on'
+    for:
+      seconds: 1
+  action:
+    - service: switch.turn_off
+      entity_id: switch.gate_drive
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.gate_ring_source
+        option: none
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.entrance_ring_source
+        option: none

@@ -5,3 +5,4 @@ outhouse:
     - binary_sensor.outhouse_button
     - binary_sensor.outhouse_pir
     - light.outhouse_light
+    - switch.outhouse_reflector

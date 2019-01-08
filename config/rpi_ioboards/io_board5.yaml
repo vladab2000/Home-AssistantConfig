@@ -22,11 +22,11 @@
     7:
       name: entrance_ring
       type: button
-      actions: [down, up, single]
+      actions: [down, up, single, long_hold]
     8:
       name: gate_ring
       type: button
-      actions: [down, up, single]
+      actions: [down, up, single, long_hold]
   outputs:
     1:
       name: kitchen_light2
